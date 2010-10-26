@@ -16,6 +16,6 @@ KEYWORDS="~x86"
 IUSE="dev"
 
 ruby_add_rdepend ">=dev-ruby/addressable-2.2
-	>=extlib-0.9.15
+	>=dev-ruby/extlib-0.9.15
 	dev? ( >=dev-ruby/jeweler-1.4
 		   >=dev-ruby/rspec-1.3 )"
