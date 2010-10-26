@@ -22,12 +22,12 @@ DEPEND="x11-libs/libX11
 		xft? ( x11-libs/libXft )
 		xinerama? ( x11-libs/libXinerama )
 		xrandr? ( x11-libs/libXrandr )"
-#		>=dev-ruby/curb-0.5.1.0
-#		>=dev-ruby/archive-tar-minitar-0.5.2
-#		>=dev-ruby/datamapper-0.9.11
-#		>=dev-ruby/sinatra-0.9.4"
 
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+		>=dev-ruby/archive-tar-minitar-0.5.2
+		>=dev-ruby/datamapper-0.9.11
+		>=dev-ruby/sinatra-0.9.4"
+#		>=dev-ruby/curb-0.5.1.0
 
 S="${WORKDIR}/${PN}"
 

@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-USE_RUBY="ruby19 jruby"
+USE_RUBY="ruby18 ruby19 jruby"
 
 inherit ruby-fakegem
 
@@ -15,4 +15,4 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-ruby_add_rdepend "test? ( dev-ruby/jeweler )"
+ruby_add_bdepend "test? ( dev-ruby/jeweler )"
