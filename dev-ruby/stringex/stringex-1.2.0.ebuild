@@ -9,9 +9,10 @@ inherit ruby-fakegem
 
 DESCRIPTION="Some useful extensions to Ruby's String class."
 HOMEPAGE="http://github.com/rsl/stringex"
-SRC_URI="http://github.com/rsl/stringex"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
+
+ruby_add_rdepend "test? ( dev-ruby/jeweler )"
