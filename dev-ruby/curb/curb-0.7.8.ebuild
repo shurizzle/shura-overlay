@@ -9,10 +9,11 @@ inherit ruby-fakegem
 
 DESCRIPTION="Ruby bindings for libcurl."
 HOMEPAGE="http://taf2.github.com/curb/"
+SRC_URI="http://gems.rubyforge.org/gems/${P}.gem"
 
 LICENSE="|| ( Ruby GPL-2 )"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="=net-misc/curl-7*"
@@ -30,7 +31,8 @@ each_ruby_compile() {
 }
 
 each_ruby_install() {
-	mv ext/curb_core.so lib || die "Unable to install extension."
+	mv ext/curb_core$(get_modname) lib || die "Unable to install extension."
 
+	each_fakegem_install
 	all_fakegem_install
 }
