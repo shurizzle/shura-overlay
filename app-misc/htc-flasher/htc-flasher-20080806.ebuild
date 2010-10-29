@@ -16,7 +16,8 @@ KEYWORDS="~x86"
 IUSE="extras doc"
 
 DEPEND="doc? ( dev-lang/perl )"
-RDEPEND="gnome-extra/zenity"
+RDEPEND="gnome-extra/zenity
+	x11-terms/xterm"
 
 S="${WORKDIR}/HTCFlasher-${PV}"
 
@@ -59,4 +60,12 @@ src_install() {
 		emake DESTDIR="${D}" install || die "Unable to install doc."
 		popd
 	fi
+}
+
+pkg_postinst() {
+	ewarn "Make sure that you have compiled kernel with
+Device Drivers  ---> USB support  ---> USB Serial Converter support"
+
+	ewarn "A list of supported devices is on
+http://code.google.com/p/htc-flasher/wiki/SupportedDevices"
 }
