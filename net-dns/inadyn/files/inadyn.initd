@@ -11,15 +11,12 @@ depend() {
 
 start() {
 	ebegin "Starting inadyn"
-	start-stop-daemon --start --chuid inadyn --exec /usr/sbin/inadyn \
-	    --pidfile /var/run/inadyn.pid --make-pidfile --background \
-	    -- --syslog --input_file /etc/inadyn.conf
+	start-stop-daemon --start --chuid inadyn --exec /usr/sbin/inadyn --pidfile /var/run/inadyn.pid --make-pidfile --background -- --syslog --input_file /etc/inadyn.conf
 	eend $?
 }
 
 stop() {
 	ebegin "Stopping inadyn"
-	start-stop-daemon --stop --exec /usr/sbin/inadyn \
-	    --pidfile /var/run/inadyn.pid
+	start-stop-daemon --stop --exec /usr/sbin/inadyn --pidfile /var/run/inadyn.pid
 	eend $?
 }
