@@ -19,14 +19,13 @@ ruby_add_bdepend "dev-ruby/daemons"
 all_ruby_install() {
 	all_fakegem_install
 
-	ruby_fakegem_binwrapper ${PN} ${PN}-${PV}
-	newinitd "${FILESDIR}/initd" ${PN}
+	ruby_fakegem_binwrapper ${PN} "${PN}-${PV}"
+	newinitd "${FILESDIR}/initd" "${PN}"
 	insinto /etc
-	doins "${FILESDIR}/confd" "${PN}.conf"
-	dodoc README.md
+	doins "${FILESDIR}/${PN}.conf"
 }
 
 pkg_postinst() {
 	enewgroup dyndyndong
-	enewuser dyndyndong -1 -1 /dev/null dyndyndong
+	enewuser dyndyndong -1 /bin/bash -1 dyndyndong
 }

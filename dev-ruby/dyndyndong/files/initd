@@ -11,14 +11,14 @@ depend() {
 
 start() {
 	ebegin "Starting DynDynDong"
-	start-stop-daemon --start --chuid dyndyndong --exec /usr/bin/dyndyndong \
-		--pidfile /var/run/dyndyndong.pid --make-pidfile --background -- --syslog
+	start-stop-daemon --start --quiet -c dyndyndong:dyndyndong --exec /usr/bin/dyndyndong \
+		--pidfile /var/run/dyndyndong.pid --make-pidfile --background --
 	eend $?
 }
 
 stop() {
 	ebegin "Stopping DynDynDong"
-	start-stop-daemon --stop --exec /usr/bin/dyndyndong \
+	start-stop-daemon --stop --quiet --exec /usr/bin/dyndyndong \
 		--pidfile /var/run/dyndyndong.pid
 	eend $?
 }
