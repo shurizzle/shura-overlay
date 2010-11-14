@@ -12,7 +12,7 @@ HOMEPAGE="http://github.com/rsl/stringex"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="x86 ~x86 amd64 ~amd64"
 IUSE=""
 
 ruby_add_bdepend "test? ( dev-ruby/jeweler )"
