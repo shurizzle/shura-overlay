@@ -5,7 +5,7 @@
 inherit eutils
 
 DESCRIPTION="Dyndns client in C supporting various services"
-HOMEPAGE="http://inadyn.ina-tech.net/"
+HOMEPAGE="http://www.inatech.eu/inadyn/"
 SRC_URI="http://www.inatech.eu/inadyn/${PN}.v${PV}.zip"
 
 LICENSE="GPL-2"

@@ -21,8 +21,9 @@ all_ruby_install() {
 
 	ruby_fakegem_binwrapper ${PN} "${PN}-${PV}"
 	newinitd "${FILESDIR}/initd" "${PN}"
+	cp "${FILESDIR}/${PN}.conf" .
 	insinto /etc
-	doins "${FILESDIR}/${PN}.conf"
+	doins "${PN}.conf"
 }
 
 pkg_postinst() {
