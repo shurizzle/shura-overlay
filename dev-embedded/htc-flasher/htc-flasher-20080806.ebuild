@@ -12,7 +12,7 @@ SRC_URI="http://${PN}.googlecode.com/files/HTCFlasher-${PV}-1.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="x86 ~x86 amd64 ~amd64"
 IUSE="extras doc"
 
 DEPEND="doc? ( dev-lang/perl )"
