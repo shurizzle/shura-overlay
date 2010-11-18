@@ -15,6 +15,7 @@ SRC_URI="${KERNEL_URI}"
 
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86"
 IUSE=""
+PROVIDE="sys-kernel/vanilla-sources"
 
 src_unpack() {
 	kernel-2_src_unpack

@@ -1,14 +1,14 @@
-diff -ruEbBN linux-2.6.37-rc2/drivers/tty/tty_io.c linux-2.6.37-rc2.new/drivers/tty/tty_io.c
---- linux-2.6.37-rc2/drivers/tty/tty_io.c	2010-11-18 00:46:05.000000000 +0100
-+++ linux-2.6.37-rc2.new/drivers/tty/tty_io.c	2010-11-18 01:44:36.000000000 +0100
-@@ -188,6 +188,7 @@
+diff -Naur linux-2.6.37-rc2/drivers/tty/tty_io.c linux-2.6.37-rc2.new/drivers/tty/tty_io.c
+--- linux-2.6.37-rc2/drivers/tty/tty_io.c	2010-11-18 18:58:47.000000000 +0100
++++ linux-2.6.37-rc2.new/drivers/tty/tty_io.c	2010-11-18 19:21:30.000000000 +0100
+@@ -187,6 +187,7 @@
+ 	if (tty->dev)
  		put_device(tty->dev);
  	kfree(tty->write_buf);
- 	tty_buffer_free_all(tty);
 +	tty_sched_destroy_group(tty);
+ 	tty_buffer_free_all(tty);
  	kfree(tty);
  }
- 
 @@ -2868,6 +2869,7 @@
  	tty->index = idx;
  	tty_line_name(driver, idx, tty->name);
@@ -17,9 +17,9 @@ diff -ruEbBN linux-2.6.37-rc2/drivers/tty/tty_io.c linux-2.6.37-rc2.new/drivers/
  }
  
  /**
-diff -ruEbBN linux-2.6.37-rc2/include/linux/sched.h linux-2.6.37-rc2.new/include/linux/sched.h
---- linux-2.6.37-rc2/include/linux/sched.h	2010-11-18 00:46:07.000000000 +0100
-+++ linux-2.6.37-rc2.new/include/linux/sched.h	2010-11-18 01:26:08.000000000 +0100
+diff -Naur linux-2.6.37-rc2/include/linux/sched.h linux-2.6.37-rc2.new/include/linux/sched.h
+--- linux-2.6.37-rc2/include/linux/sched.h	2010-11-18 18:58:48.000000000 +0100
++++ linux-2.6.37-rc2.new/include/linux/sched.h	2010-11-18 19:00:55.000000000 +0100
 @@ -1930,6 +1930,20 @@
  
  extern unsigned int sysctl_sched_compat_yield;
@@ -41,9 +41,9 @@ diff -ruEbBN linux-2.6.37-rc2/include/linux/sched.h linux-2.6.37-rc2.new/include
  #ifdef CONFIG_RT_MUTEXES
  extern int rt_mutex_getprio(struct task_struct *p);
  extern void rt_mutex_setprio(struct task_struct *p, int prio);
-diff -ruEbBN linux-2.6.37-rc2/include/linux/tty.h linux-2.6.37-rc2.new/include/linux/tty.h
---- linux-2.6.37-rc2/include/linux/tty.h	2010-11-18 00:46:07.000000000 +0100
-+++ linux-2.6.37-rc2.new/include/linux/tty.h	2010-11-18 01:27:46.000000000 +0100
+diff -Naur linux-2.6.37-rc2/include/linux/tty.h linux-2.6.37-rc2.new/include/linux/tty.h
+--- linux-2.6.37-rc2/include/linux/tty.h	2010-11-18 18:58:48.000000000 +0100
++++ linux-2.6.37-rc2.new/include/linux/tty.h	2010-11-18 19:00:55.000000000 +0100
 @@ -329,6 +329,9 @@
  	/* If the tty has a pending do_SAK, queue it here - akpm */
  	struct work_struct SAK_work;
@@ -54,9 +54,9 @@ diff -ruEbBN linux-2.6.37-rc2/include/linux/tty.h linux-2.6.37-rc2.new/include/l
  };
  
  /* Each of a tty's open files has private_data pointing to tty_file_private */
-diff -ruEbBN linux-2.6.37-rc2/init/Kconfig linux-2.6.37-rc2.new/init/Kconfig
---- linux-2.6.37-rc2/init/Kconfig	2010-11-18 00:46:07.000000000 +0100
-+++ linux-2.6.37-rc2.new/init/Kconfig	2010-11-18 01:52:58.000000000 +0100
+diff -Naur linux-2.6.37-rc2/init/Kconfig linux-2.6.37-rc2.new/init/Kconfig
+--- linux-2.6.37-rc2/init/Kconfig	2010-11-18 18:58:48.000000000 +0100
++++ linux-2.6.37-rc2.new/init/Kconfig	2010-11-18 19:00:55.000000000 +0100
 @@ -675,6 +675,19 @@
  
  endif # CGROUPS
@@ -77,9 +77,9 @@ diff -ruEbBN linux-2.6.37-rc2/init/Kconfig linux-2.6.37-rc2.new/init/Kconfig
  menuconfig NAMESPACES
  	bool "Namespaces support" if EMBEDDED
  	default !EMBEDDED
-diff -ruEbBN linux-2.6.37-rc2/kernel/sched.c linux-2.6.37-rc2.new/kernel/sched.c
---- linux-2.6.37-rc2/kernel/sched.c	2010-11-18 00:46:08.000000000 +0100
-+++ linux-2.6.37-rc2.new/kernel/sched.c	2010-11-18 01:38:07.000000000 +0100
+diff -Naur linux-2.6.37-rc2/kernel/sched.c linux-2.6.37-rc2.new/kernel/sched.c
+--- linux-2.6.37-rc2/kernel/sched.c	2010-11-18 18:58:48.000000000 +0100
++++ linux-2.6.37-rc2.new/kernel/sched.c	2010-11-18 19:00:55.000000000 +0100
 @@ -78,6 +78,7 @@
  
  #include "sched_cpupri.h"
@@ -114,271 +114,9 @@ diff -ruEbBN linux-2.6.37-rc2/kernel/sched.c linux-2.6.37-rc2.new/kernel/sched.c
  #include "sched_stoptask.c"
  #ifdef CONFIG_SCHED_DEBUG
  # include "sched_debug.c"
-diff -ruEbBN linux-2.6.37-rc2/kernel/sched_tty.c linux-2.6.37-rc2.new/kernel/sched_tty.c
---- linux-2.6.37-rc2/kernel/sched_tty.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-2.6.37-rc2.new/kernel/sched_tty.c	2010-11-18 01:50:51.000000000 +0100
-@@ -0,0 +1,258 @@
-+
-+#ifdef CONFIG_SCHED_DESKTOP
-+
-+#include <linux/tty.h>
-+
-+
-+
-+unsigned int __read_mostly sysctl_sched_tty_sched_enabled = 1;
-+
-+
-+
-+void tty_sched_create_group(struct tty_struct *tty)
-+
-+{
-+
-+	tty->tg = sched_create_group(&init_task_group);
-+
-+	if (IS_ERR(tty->tg)) {
-+
-+		tty->tg = &init_task_group;
-+
-+		 WARN_ON(1);
-+
-+	}
-+
-+}
-+
-+EXPORT_SYMBOL(tty_sched_create_group);
-+
-+
-+
-+void tty_sched_destroy_group(struct tty_struct *tty)
-+
-+{
-+
-+	if (tty->tg && tty->tg != &init_task_group)
-+
-+		sched_destroy_group(tty->tg);
-+
-+}
-+
-+EXPORT_SYMBOL(tty_sched_destroy_group);
-+
-+
-+
-+static inline void
-+
-+tty_sched_check_attach(struct task_struct *p, struct task_group **tg)
-+
-+{
-+
-+	struct tty_struct *tty;
-+
-+	int attach = 0, enabled = sysctl_sched_tty_sched_enabled;
-+
-+
-+
-+	rcu_read_lock();
-+
-+	tty = p->signal->tty;
-+
-+	if (!tty)
-+
-+		goto out_unlock;
-+
-+
-+
-+	if (enabled && *tg == &root_task_group) {
-+
-+		*tg = p->signal->tty->tg;
-+
-+		attach = 1;
-+
-+	} else if (!enabled && *tg == tty->tg) {
-+
-+		*tg = &root_task_group;
-+
-+		attach = 1;
-+
-+	}
-+
-+
-+
-+	if (attach && !p->se.on_rq) {
-+
-+		p->se.vruntime -= cfs_rq_of(&p->se)->min_vruntime;
-+
-+		p->se.vruntime += (*tg)->cfs_rq[task_cpu(p)]->min_vruntime;
-+
-+	}
-+
-+
-+
-+out_unlock:
-+
-+	rcu_read_unlock();
-+
-+}
-+
-+
-+
-+void tty_sched_move_task(struct task_struct *p, struct task_group *tg)
-+
-+{
-+
-+	struct sched_entity *se = &p->se;
-+
-+	struct rq *rq;
-+
-+	unsigned long flags;
-+
-+	int on_rq, running, cpu;
-+
-+
-+
-+	rq = task_rq_lock(p, &flags);
-+
-+
-+
-+	running = task_current(rq, p);
-+
-+	on_rq = se->on_rq;
-+
-+	cpu = rq->cpu;
-+
-+
-+
-+	if (on_rq)
-+
-+		dequeue_task(rq, p, 0);
-+
-+	if (unlikely(running))
-+
-+		p->sched_class->put_prev_task(rq, p);
-+
-+
-+
-+	if (!on_rq)
-+
-+		se->vruntime -= cfs_rq_of(se)->min_vruntime;
-+
-+
-+
-+	se->cfs_rq = tg->cfs_rq[cpu];
-+
-+	se->parent = tg->se[cpu];
-+
-+
-+
-+	p->rt.rt_rq  = tg->rt_rq[cpu];
-+
-+	p->rt.parent = tg->rt_se[cpu];
-+
-+
-+
-+	if (!on_rq)
-+
-+		se->vruntime += cfs_rq_of(se)->min_vruntime;
-+
-+
-+
-+	if (unlikely(running))
-+
-+		p->sched_class->set_curr_task(rq);
-+
-+	if (on_rq)
-+
-+		enqueue_task(rq, p, 0);
-+
-+
-+
-+	task_rq_unlock(rq, &flags);
-+
-+}
-+
-+
-+
-+int sched_tty_sched_handler(struct ctl_table *table, int write,
-+
-+		void __user *buffer, size_t *lenp,
-+
-+		loff_t *ppos)
-+
-+{
-+
-+	struct task_struct *p, *t;
-+
-+	struct task_group *tg;
-+
-+	unsigned long flags;
-+
-+	int ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
-+
-+
-+
-+	if (ret || !write)
-+
-+		return ret;
-+
-+
-+
-+	read_lock_irqsave(&tasklist_lock, flags);
-+
-+
-+
-+	rcu_read_lock();
-+
-+	for_each_process(p) {
-+
-+		tg = task_group(p);
-+
-+		tty_sched_move_task(p, tg);
-+
-+		list_for_each_entry_rcu(t, &p->thread_group, thread_group) {
-+
-+			tty_sched_move_task(t, tg);
-+
-+		}
-+
-+	}
-+
-+	rcu_read_unlock();
-+
-+
-+
-+	read_unlock_irqrestore(&tasklist_lock, flags);
-+
-+
-+
-+	return 0;
-+
-+}
-+
-+
-+
-+static int __init setup_tty_sched(char *str)
-+
-+{
-+
-+	unsigned long val;
-+
-+
-+
-+	val = simple_strtoul(str, NULL, 0);
-+
-+	sysctl_sched_tty_sched_enabled = val ? 1 : 0;
-+
-+
-+
-+	return 1;
-+
-+}
-+
-+__setup("ttysched=", setup_tty_sched);
-+
-+#endif
-+
-+
-diff -ruEbBN linux-2.6.37-rc2/kernel/sched_tty.h linux-2.6.37-rc2.new/kernel/sched_tty.h
+diff -Naur linux-2.6.37-rc2/kernel/sched_tty.h linux-2.6.37-rc2.new/kernel/sched_tty.h
 --- linux-2.6.37-rc2/kernel/sched_tty.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-2.6.37-rc2.new/kernel/sched_tty.h	2010-11-18 01:44:54.000000000 +0100
++++ linux-2.6.37-rc2.new/kernel/sched_tty.h	2010-11-18 19:04:21.000000000 +0100
 @@ -0,0 +1,7 @@
 +#ifdef CONFIG_SCHED_DESKTOP
 +static inline void
@@ -387,9 +125,9 @@ diff -ruEbBN linux-2.6.37-rc2/kernel/sched_tty.h linux-2.6.37-rc2.new/kernel/sch
 +static inline void
 +tty_sched_check_attach(struct task_struct *p, struct task_group **tg) { }
 +#endif
-diff -ruEbBN linux-2.6.37-rc2/kernel/sysctl.c linux-2.6.37-rc2.new/kernel/sysctl.c
---- linux-2.6.37-rc2/kernel/sysctl.c	2010-11-18 00:46:08.000000000 +0100
-+++ linux-2.6.37-rc2.new/kernel/sysctl.c	2010-11-18 01:51:54.000000000 +0100
+diff -Naur linux-2.6.37-rc2/kernel/sysctl.c linux-2.6.37-rc2.new/kernel/sysctl.c
+--- linux-2.6.37-rc2/kernel/sysctl.c	2010-11-18 18:58:48.000000000 +0100
++++ linux-2.6.37-rc2.new/kernel/sysctl.c	2010-11-18 19:05:18.000000000 +0100
 @@ -276,6 +276,17 @@
  		.mode		= 0644,
  		.proc_handler	= proc_dointvec,
