@@ -18,6 +18,15 @@ IUSE=""
 
 src_unpack() {
 	kernel-2_src_unpack
-	pwd && ls
 	epatch "${FILESDIR}/tty_scheduler.patch"
+}
+
+pkg_postinst() {
+	kernel-2_pkg_postinst
+	einfo "This patch implements an idea from Linus, to automatically create task groups
+per tty, to improve desktop interactivity under hefty load such as kbuild.  The
+feature is enabled from boot by default,  The default setting can be changed via
+the boot option ttysched=0, and can be can be turned on or off on the fly via
+echo [01] > /proc/sys/kernel/sched_tty_sched_enabled."
+	einfo "http://lkml.org/lkml/2010/10/19/123"
 }
