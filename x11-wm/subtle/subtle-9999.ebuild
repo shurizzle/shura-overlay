@@ -68,5 +68,15 @@ src_compile() {
 }
 
 src_install() {
-	rake install || die "Install failed"
+	cat <<'EOF' > subtle.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=subtle
+Comment=subtle tiling window manager
+Exec=subtle
+Type=XSession
+EOF
+    rake install || die "Install failed"
+    insinto /usr/share/xsessions
+    doins subtle.desktop || die
 }
