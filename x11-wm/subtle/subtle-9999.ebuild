@@ -14,7 +14,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="debug doc xft xinerama xrandr"
-DEPEND="x11-libs/libX11
+RDEPEND="x11-libs/libX11
 		dev-lang/ruby:1.9
         >=sys-devel/gcc-4.3
         dev-vcs/mercurial
@@ -23,7 +23,9 @@ DEPEND="x11-libs/libX11
 		xinerama? ( x11-libs/libXinerama )
 		xrandr? ( x11-libs/libXrandr )"
 
-RDEPEND="${DEPEND}
+DEPEND="${RDEPEND}
+		dev-ruby/tilt
+		dev-ruby/haml
 		>=dev-ruby/curb-0.5.1.0
 		>=dev-ruby/archive-tar-minitar-0.5.2
 		>=dev-ruby/datamapper-0.9.11
