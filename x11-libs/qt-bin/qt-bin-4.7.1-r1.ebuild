@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+PACMAN_PACKAGE_NAME="qt"
 
 inherit pacman
 
