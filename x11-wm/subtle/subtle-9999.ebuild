@@ -20,16 +20,16 @@ RDEPEND="x11-libs/libX11
         dev-vcs/mercurial
         dev-ruby/rake
 		xft? ( x11-libs/libXft )
-		xinerama? ( x11-libs/libXinerama )
-		xrandr? ( x11-libs/libXrandr )"
-
-DEPEND="${RDEPEND}
+		xinerama? ( x11-proto/xineramaproto x11-libs/libXinerama )
+		xrandr? ( x11-libs/libXrandr )
 		dev-ruby/tilt
 		dev-ruby/haml
 		>=dev-ruby/curb-0.5.1.0
 		>=dev-ruby/archive-tar-minitar-0.5.2
 		>=dev-ruby/datamapper-0.9.11
 		>=dev-ruby/sinatra-0.9.4"
+
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}"
 
@@ -81,4 +81,8 @@ EOF
 	rake install || die "Install failed"
 	insinto /usr/share/xsessions
 	doins subtle.desktop || die
+
+	if use doc; then
+		dohtml -r html/* || die
+	fi
 }
