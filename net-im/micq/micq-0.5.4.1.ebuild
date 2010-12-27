@@ -41,3 +41,7 @@ src_configure() {
 
 	econf $ICONV $SSL $TCL --disable-dependency-tracking || die
 }
+
+src_install() {
+	emake DESTDIR="${D}" install || die
+}
