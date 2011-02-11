@@ -31,7 +31,8 @@ each_ruby_compile() {
 }
 
 each_ruby_install() {
-	mv ext/oily_png/oily_png$(get_modname) lib || die "Unable to install extension."
+	mkdir lib/oily_png || die "Unable to create install directory."
+	mv ext/oily_png/oily_png$(get_modname) lib/oily_png || die "Unable to install extension."
 
 	each_fakegem_install
 	all_fakegem_install
