@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE+=" oss +alsa jack"
 
-qt_deps_add "x11-libs/qt-gui:4"
+qt_rdeps_add "x11-libs/qt-gui:4"
 
 DEPEND+=" sci-libs/fftw:3.0
 	alsa? ( media-libs/alsa-lib media-sound/alsa-headers )

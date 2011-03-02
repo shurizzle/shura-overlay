@@ -12,11 +12,11 @@ HOMEPAGE="http://datamapper.org/"
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="dev"
 
 ruby_add_rdepend "~dev-ruby/dm-core-${PV}
-	>=dev-ruby/json_pure-1.4
+	>=dev-ruby/json-1.4
 	>=dev-ruby/fastercsv-1.5.3
 	dev? ( >=dev-ruby/rspec-1.3
 		   >=dev-ruby/nokogiri-1.4.3

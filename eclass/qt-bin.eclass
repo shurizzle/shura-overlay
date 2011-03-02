@@ -15,7 +15,7 @@ inherit multilib
 
 EXPORT_FUNCTIONS pkg_setup
 
-IUSE="${IUSE} +qt qt-bin"
+IUSE="${IUSE} qt-bin"
 
 RDEPEND="${RDEPEND}
 	qt-bin? ( x11-libs/qt-bin )"
@@ -48,10 +48,15 @@ qt-bin_pkg_setup() {
 	qt-bin_check_qt
 }
 
-# @FUNCTION: qt_deps_add
+# @FUNCTION: qt_rdeps_add
 # @DESCRIPTION:
 # Insert all qt packages needed
-qt_deps_add() {
+qt_rdeps_add() {
 	RDEPEND="${RDEPEND}
-	qt? ( ${1} )"
+	!qt-bin? ( ${1} )"
+}
+
+qt_bdeps_add() {
+	DEPEND="${DEPEND}
+	!qt-bin? ( ${1} )"
 }

@@ -12,7 +12,7 @@ HOMEPAGE="http://datamapper.org/"
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="dev"
 
 ruby_add_rdepend "=dev-ruby/dm-core-1.0.2
@@ -23,6 +23,7 @@ ruby_add_rdepend "=dev-ruby/dm-core-1.0.2
 	=dev-ruby/dm-serializer-1.0.2
 	=dev-ruby/dm-timestamps-1.0.2
 	=dev-ruby/dm-validations-1.0.2
-	=dev-ruby/dm-types-1.0.2
-	dev? ( >=dev-ruby/hoe-2.6.1
+	=dev-ruby/dm-types-1.0.2"
+
+ruby_add_bdepend "dev? ( >=dev-ruby/hoe-2.6.1
 		   >=dev-ruby/rubyforge-2.0.4 )"

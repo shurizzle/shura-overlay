@@ -12,7 +12,7 @@ HOMEPAGE="http://datamapper.org/"
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="dev"
 
 ruby_add_rdepend "~dev-ruby/dm-core-${PV}

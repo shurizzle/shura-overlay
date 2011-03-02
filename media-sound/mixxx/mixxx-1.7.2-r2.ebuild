@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE+=" debug +hifieq ipod ladspa pulseaudio shout tonal +vinylcontrol"
 
-qt_deps_add "x11-libs/qt-gui:4
+qt_rdeps_add "x11-libs/qt-gui:4
 	x11-libs/qt-svg:4
 	x11-libs/qt-opengl:4"
 
@@ -30,7 +30,7 @@ RDEPEND+=" media-libs/libmad
 	pulseaudio? ( media-sound/pulseaudio )
 	shout? ( media-libs/libshout )"
 
-DEPEND="${RDEPEND}
+DEPEND="${DEPEND} ${RDEPEND}
 	dev-util/scons
 	dev-util/pkgconfig"
 
