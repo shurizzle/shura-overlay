@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit bash-completion
+inherit eutils bash-completion
 
 DESCRIPTION="A download utility with resuming and segmented downloading with HTTP/HTTPS/FTP/BitTorrent support."
 HOMEPAGE="http://aria2.sourceforge.net/"
@@ -47,7 +47,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/max-connection-1.11.0.patch"
+	epatch "${FILESDIR}/max-connection-1.11.0.patch" || die
 	sed -i -e "s|/tmp|${T}|" test/*.cc test/*.txt || die "sed failed"
 }
 
