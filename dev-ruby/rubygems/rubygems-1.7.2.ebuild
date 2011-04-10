@@ -43,11 +43,6 @@ all_ruby_prepare() {
 	cp "${FILESDIR}/gentoo-defaults.rb" lib/rubygems/defaults/operating_system.rb || die
 
 	eprefixify lib/rubygems/defaults/operating_system.rb
-
-	# Disable broken tests when changing default values:
-	sed -i -e '/^  def test_self_bindir_default_dir/, /^  end/ s:^:#:' \
-		-e '/^  def test_self_default_dir/, /^  end/ s:^:#:' \
-		test/test_gem.rb || die
 }
 
 each_ruby_compile() {
@@ -85,8 +80,6 @@ each_ruby_install() {
 }
 
 all_ruby_install() {
-	dodoc README || die "dodoc README failed"
-
 	doenvd "${FILESDIR}/10rubygems" || die "doenvd 10rubygems failed"
 
 	if use server; then
