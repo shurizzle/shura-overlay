@@ -23,10 +23,10 @@ RDEPEND="x11-libs/libX11
 		xinerama? ( x11-proto/xineramaproto x11-libs/libXinerama )
 		xrandr? ( x11-libs/libXrandr )
 		dev-ruby/tilt
-		dev-ruby/haml
 		sur? ( >=dev-ruby/curb-0.5.1.0
 		>=dev-ruby/archive-tar-minitar-0.5.2 )
 		server? ( >=dev-ruby/datamapper-0.9.11
+		dev-ruby/haml
 		>=dev-ruby/sinatra-0.9.4 )"
 
 DEPEND="${RDEPEND}"
