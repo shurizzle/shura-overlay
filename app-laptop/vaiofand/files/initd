@@ -1,0 +1,22 @@
+#!/sbin/runscript
+# Copyright 1999-2007 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+	use logger
+}
+
+start() {
+	ebegin "Starting vaiofand"
+	start-stop-daemon --start --quiet --exec /usr/sbin/vaiofand \
+		--pidfile /var/run/vaiofand.pid --make-pidfile --background --
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping vaiofand"
+	start-stop-daemon --stop --quiet --exec /usr/sbin/vaiofand \
+		--pidfile /var/run/vaiofand.pid
+	eend $?
+}
