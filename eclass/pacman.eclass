@@ -37,7 +37,6 @@ PACMAN_PACKAGE_RELEASE="${PACMAN_PACKAGE_RELEASE:-1}"
 PACMAN_PACKAGE="${PACMAN_PACKAGE:-${PACMAN_PACKAGE_NAME}-${PACMAN_PACKAGE_VERSION}-${PACMAN_PACKAGE_RELEASE}}"
 
 PACMAN_CACHE_DIR="${PACMAN_CACHE_DIR:-${DISTDIR}}"
-PACMAN_A="${PACMAN_PACKAGE}-$(uname -m).pkg.tar.xz"
 
 DEPEND="${DEPEND} sys-apps/pacman"
 RDEPEND="${RDEPEND} sys-apps/pacman"
@@ -61,7 +60,7 @@ pacman_package_location() {
 # @DESCRIPTION:
 # Download package and unpack it.
 pacman_src_unpack() {
-	unpack "${PACMAN_A}"
+	unpack "${A}"
 }
 
 # @FUNCTION: pacman_src_install
