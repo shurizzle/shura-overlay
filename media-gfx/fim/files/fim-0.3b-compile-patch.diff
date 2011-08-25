@@ -1,0 +1,26 @@
+diff -ruEbBN fim-0.3-beta-prerelease.old/src/DebugConsole.cpp fim-0.3-beta-prerelease.new/src/DebugConsole.cpp
+--- fim-0.3-beta-prerelease.old/src/DebugConsole.cpp	2009-04-12 22:38:18.000000000 +0200
++++ fim-0.3-beta-prerelease.new/src/DebugConsole.cpp	2011-08-21 12:04:48.000000000 +0200
+@@ -108,8 +108,9 @@
+ 		#undef min
+ 		}
+ 
+-		int MiniConsole::add(const char* cs)
++		int MiniConsole::add(const char* cs1)
+ 		{
++      char * cs = (char *) cs1;
+ 			char *s,*b;
+ 			int nc;
+ 			int nl,ol=cline;
+diff -ruEbBN fim-0.3-beta-prerelease.old/src/FbiStuffPng.cpp fim-0.3-beta-prerelease.new/src/FbiStuffPng.cpp
+--- fim-0.3-beta-prerelease.old/src/FbiStuffPng.cpp	2009-04-28 23:02:50.000000000 +0200
++++ fim-0.3-beta-prerelease.new/src/FbiStuffPng.cpp	2011-08-21 12:07:31.000000000 +0200
+@@ -109,7 +109,7 @@
+     if (h->color_type == PNG_COLOR_TYPE_PALETTE)
+ 	png_set_palette_to_rgb(h->png);
+     if (h->color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+-	png_set_gray_1_2_4_to_8(h->png);
++	png_set_expand_gray_1_2_4_to_8(h->png);
+ 
+     if (png_get_bKGD(h->png, h->info, &file_bg)) {
+ 	png_set_background(h->png,file_bg,PNG_BACKGROUND_GAMMA_FILE,1,1.0);

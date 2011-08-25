@@ -1,0 +1,25 @@
+diff -ruEbBN aria2-1.12.0.old/src/OptionHandlerFactory.cc aria2-1.12.0.new/src/OptionHandlerFactory.cc
+--- aria2-1.12.0.old/src/OptionHandlerFactory.cc	2011-06-30 15:55:58.000000000 +0200
++++ aria2-1.12.0.new/src/OptionHandlerFactory.cc	2011-07-06 01:46:36.000000000 +0200
+@@ -373,8 +373,8 @@
+     SharedHandle<OptionHandler> op(new NumberOptionHandler
+                                    (PREF_MAX_CONNECTION_PER_SERVER,
+                                     TEXT_MAX_CONNECTION_PER_SERVER,
+-                                    "1",
+-                                    1, 16,
++                                    "256",
++                                    1, 256,
+                                     'x'));
+     op->addTag(TAG_BASIC);
+     op->addTag(TAG_FTP);
+@@ -427,8 +427,8 @@
+     SharedHandle<OptionHandler> op(new UnitNumberOptionHandler
+                                    (PREF_MIN_SPLIT_SIZE,
+                                     TEXT_MIN_SPLIT_SIZE,
+-                                    "20M",
+-                                    1024*1024, 1024*1024*1024,
++                                    "1K",
++                                    1024, 1024*1024*1024,
+                                     'k'));
+     op->addTag(TAG_BASIC);
+     op->addTag(TAG_FTP);

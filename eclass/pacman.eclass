@@ -52,7 +52,7 @@ epacman() {
 }
 
 pacman_package_location() {
-	pacman -Sdp "${PACMAN_PACKAGE_NAME}=${PACMAN_PACKAGE_VERSION}-${PACMAN_PACKAGE_RELEASE}" || \
+	pacman -Sddp "${PACMAN_PACKAGE_NAME}=${PACMAN_PACKAGE_VERSION}-${PACMAN_PACKAGE_RELEASE}" || \
 		die "Can't retrieve package location."
 }
 
