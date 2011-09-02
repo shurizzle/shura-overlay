@@ -23,20 +23,11 @@ RDEPEND="${RDEPEND}"
 
 src_prepare() {
 	distutils_src_prepare
-	sed -i 's:from IN:from _testcapi:' usbcreator/misc.py
+	sed -i 's:from IN:from _testcapi:' usbcreator/misc.py || die 'sed failed'
+	sed -i 's:/usr/lib/syslinux/mbr.bin:/usr/share/syslinux/mbr.bin:' \
+		bin/usb-creator-helper || die 'sed failed'
 
 	if ! use kde; then
 		epatch "${FILESDIR}/gtk-only.patch"
 	fi
 }
-
-#src_compile() {
-	#python2.7 setup.py build || die
-#}
-
-#src_install() {
-	#python2.7 setup.py install \
-		#--home="${D}" \
-		#--install-scripts="${D}/usr/bin" \
-		#--install-lib="${D}/usr/lib/python2.7" || die
-#}
