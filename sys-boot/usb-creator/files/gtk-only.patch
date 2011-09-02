@@ -1,0 +1,53 @@
+diff -ruEbBN usb-creator-0.2.31.2/Makefile usb-creator-0.2.31.2.gtk/Makefile
+--- usb-creator-0.2.31.2/Makefile	2010-11-23 17:01:32.000000000 +0100
++++ usb-creator-0.2.31.2.gtk/Makefile	2011-09-02 15:39:08.000000000 +0200
+@@ -9,7 +9,6 @@
+ 		| sed '/gtk\.ui/ s,^,[type: gettext/glade],' > po/POTFILES.in
+ 	echo ./main.py >> po/POTFILES.in
+ 	echo ./bin/usb-creator-gtk >> po/POTFILES.in
+-	echo ./bin/usb-creator-kde >> po/POTFILES.in
+ 	python setup.py build_i18n --merge-po --po-dir po
+ 
+ check_external_deps:
+diff -ruEbBN usb-creator-0.2.31.2/setup.cfg usb-creator-0.2.31.2.gtk/setup.cfg
+--- usb-creator-0.2.31.2/setup.cfg	2011-05-19 18:25:06.000000000 +0200
++++ usb-creator-0.2.31.2.gtk/setup.cfg	2011-09-02 15:39:25.000000000 +0200
+@@ -3,5 +3,5 @@
+ 
+ [build_i18n]
+ domain = usbcreator
+-desktop_files = [('share/applications', ['desktop/usb-creator-gtk.desktop.in', 'desktop/usb-creator-kde.desktop.in'])]
++desktop_files = [('share/applications', ['desktop/usb-creator-gtk.desktop.in'])]
+ xml_files = [('share/polkit-1/actions', ['dbus/com.ubuntu.usbcreator.policy.in'])]
+diff -ruEbBN usb-creator-0.2.31.2/setup.py usb-creator-0.2.31.2.gtk/setup.py
+--- usb-creator-0.2.31.2/setup.py	2010-11-23 17:01:32.000000000 +0100
++++ usb-creator-0.2.31.2.gtk/setup.py	2011-09-02 15:40:09.000000000 +0200
+@@ -5,8 +5,6 @@
+ class usb_creator_build_i18n(build_i18n.build_i18n):
+     def run(self):
+          build_i18n.build_i18n.run(self)
+-         print "extracting strings for KDE frontend"
+-         os.system("./Messages.sh")
+ 
+ setup(name='usb-creator',
+     version='0.2.23',
+@@ -16,17 +14,15 @@
+     packages=['usbcreator',
+               'usbcreator.frontends',
+               'usbcreator.frontends.gtk',
+-              'usbcreator.frontends.kde',
+               'usbcreator.frontends.base',
+               'usbcreator.backends',
+               'usbcreator.backends.base',
+               'usbcreator.backends.udisks',
+              ],
+-    scripts=['bin/usb-creator-gtk','bin/usb-creator-kde'],
++    scripts=['bin/usb-creator-gtk'],
+     data_files=[('share/usb-creator', ['gui/usbcreator-gtk.ui']),
+                 ('share/usb-creator', ['bin/usb-creator-helper']),
+-                ('share/icons/hicolor/scalable/apps', ['desktop/usb-creator-gtk.svg', 'desktop/usb-creator-kde.svg']),
+-                ('share/kde4/apps/usb-creator-kde', ['gui/usbcreator-kde.ui']),
++                ('share/icons/hicolor/scalable/apps', ['desktop/usb-creator-gtk.svg']),
+                 ('/etc/dbus-1/system.d', ['dbus/com.ubuntu.USBCreator.conf']),
+                 ('share/dbus-1/system-services', ['dbus/com.ubuntu.USBCreator.service']),
+                 ('share/apport/package-hooks', ['debian/source_usb-creator.py'])],
